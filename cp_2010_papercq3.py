@@ -1,4 +1,4 @@
-# Filename: cp_2010_paperbq4.py
+# Filename: cp_2010_papercq3.py
 # Name: Lee Hui Min
 # Centre No / Index No: 3024 /
 # Description: A report should be generated and displayed which will list the resources, which are still out on loan, grouped by date due back.
@@ -75,6 +75,8 @@ def REPORT():
             date_due_back = time.strftime("%Y-%m-%d", date_due_back)
             d[date_due_back].append(temp)
 
+            count_totalcd = 0
+            count_totaldvd = 0 
         for dates,lists in d.items():
             dates = str(dates)
             dates = time.strptime(dates,"%Y-%m-%d")
@@ -83,12 +85,21 @@ def REPORT():
             print(dates)
             # Print dotted line
             print('-' * 75)
+            # Counting number of CDs and DVDs in the list
+            count_cd = 0
+            count_dvd = 0
             # For the number of lists in the dictionary
             for i in range(len(lists)):
                 # Print the records in the dictionary with that key
-                print(lists[i][0] + ' '* 10 + lists[i][1] + ' ' + lists[i][2] + ' ' + lists[i][3] + ' ' + lists[i][4]) 
-            print ("Number of resources: " + str(len(lists)) + '\n') # number of resources
-
+                print(lists[i][0] + ' '* 10 + lists[i][1] + ' ' + lists[i][2] + ' ' + lists[i][3] + ' ' + lists[i][4])
+                if (lists[i][2] == 'CD'):
+                    count_cd = count_cd + 1
+                    count_totalcd = count_totalcd + 1
+                else:
+                    count_dvd = count_dvd + 1
+                    count_totaldvd = count_dvd + 1
+            print ("Number of Resources: " + 'CD: ' + str(count_cd) + ' DVD: ' + str(count_dvd) + '\n') # number of resources
+        print ("Total Number of Resources: " + 'CD: ' + str(count_totalcd) + ' DVD: ' + str(count_totaldvd) + '\n')
         # Close file
         loan_file.close()
         resource_file.close()
